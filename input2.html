@@ -1,0 +1,220 @@
+<!doctype html>
+
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>中期检查</title>
+  <!-- Page styles -->
+  <!-- Page styles -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.min.css">
+  <link rel="stylesheet" href="bootstrap-theme.css">
+  <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+    <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+      <div class="mdl-layout__header-row">
+        <span class="android-title mdl-layout-title">
+            <p>Demo</p>
+          </span>
+        <!-- Add spacer, to align navigation to the right in desktop -->
+        <div class="android-header-spacer mdl-layout-spacer"></div>
+        <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+          <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+              <i class="material-icons">search</i>
+            </label>
+          <div class="mdl-textfield__expandable-holder">
+            <input class="mdl-textfield__input" type="text" id="search-field">
+          </div>
+        </div>
+        <!-- Navigation -->
+        <div class="android-navigation-container">
+          <nav class="android-navigation mdl-navigation">
+
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="./input1.html">项目申报</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="./input2.html">中期检查</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="./input3.html">成果验收</a>
+          </nav>
+        </div>
+        <span class="android-mobile-title mdl-layout-title">
+            <img class="android-logo-image" src="images/android-logo.png">
+          </span>
+        <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+            <i class="material-icons">more_vert</i>
+          </button>
+        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+          <li class="mdl-menu__item">帮助</li>
+          <li class="mdl-menu__item">反馈</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="android-drawer mdl-layout__drawer">
+      <span class="mdl-layout-title">
+
+          <i class=" android-logo-image material-icons md-72 orange600">face</i>
+        </span>
+      <nav class="mdl-navigation">
+        <span class="mdl-navigation__link" href="">项目申报</span>
+
+        <a class="mdl-navigation__link" href="">学院申报概况</a>
+        <a class="mdl-navigation__link" href="">项目类别概况</a>
+        <a class="mdl-navigation__link" href="">经费概况</a>
+        <a class="mdl-navigation__link" href="">预期成果概况</a>
+        <div class="android-drawer-separator"></div>
+        <span class="mdl-navigation__link" href="">中期检查</span>
+        <a class="mdl-navigation__link" href="">项目进展</a>
+        <a class="mdl-navigation__link" href="">验收进度</a>
+        <div class="android-drawer-separator"></div>
+        <span class="mdl-navigation__link" href="">成果验收</span>
+        <a class="mdl-navigation__link" href="">完成情况</a>
+        <a class="mdl-navigation__link" href="">项目评价</a>
+      </nav>
+    </div>
+
+    <div class="android-content mdl-layout__content">
+      <a name="top"></a>
+      <div class="android-more-section">
+        <div class="android-section-title mdl-typography--display-1-color-contrast">中期材料提交</div>
+        <div class="android-card-container ">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label for="proName" class="col-sm-2 control-label">项目进度</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" id="proName" placeholder="进度正常，进度超前，进度滞后">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="manName" class="col-sm-2 control-label">预期成果名称</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="manName" placeholder="论文，软著，专利">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputText" class="col-sm-2 control-label">阶段性报告</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" id="inputText" rows="3"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputFile" class="col-sm-2 control-label">材料提交</label>
+              <div class=" col-sm-10">
+                <input type="file" id="exampleInputFile">
+                <p class="help-block">提示文本测试.</p>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">提交</button>
+              </div>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+
+      <footer class="android-footer mdl-mega-footer">
+        <div class="mdl-mega-footer--top-section">
+          <div class="mdl-mega-footer--left-section">
+            <button class="mdl-mega-footer--social-btn"></button> &nbsp;
+            <button class="mdl-mega-footer--social-btn"></button> &nbsp;
+            <button class="mdl-mega-footer--social-btn"></button>
+          </div>
+          <div class="mdl-mega-footer--right-section">
+            <a class="mdl-typography--font-light" href="#top">
+
+                    <i class="material-icons">expand_less</i>
+                  </a>
+          </div>
+        </div>
+
+        <div class="mdl-mega-footer--middle-section">
+          <p class="mdl-typography--font-light">前端部分完成于2017/11/19@Monius</p>
+          <p class="mdl-typography--font-light">后续功能正在完善...</p>
+        </div>
+
+        <div class="mdl-mega-footer--bottom-section">
+          <a class="android-link android-link-menu mdl-typography--font-light" id="version-dropdown">
+                  版本
+                  <i class="material-icons">arrow_drop_up</i>
+                </a>
+          <ul class="mdl-menu mdl-js-menu mdl-menu--top-left mdl-js-ripple-effect" for="version-dropdown">
+            <li class="mdl-menu__item">Ver1.0</li>
+            <li class="mdl-menu__item">Ver0.7</li>
+            <li class="mdl-menu__item">Ver0.01</li>
+            <li class="mdl-menu__item">Beta</li>
+          </ul>
+
+
+
+          <a class="android-link mdl-typography--font-light" href="">Privacy Policy</a>
+        </div>
+
+      </footer>
+    </div>
+  </div>
+
+
+
+  <a data-target="#login" data-toggle="modal" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">登陆</a>
+  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="#">
+        <div class="container">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="number">
+            <label class="mdl-textfield__label" for="number">学号</label>
+            <span class="mdl-textfield__error">请输入正确的学号</span>
+          </div>
+        </div>
+        <div class="container">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="password" id="passwd">
+            <label class="mdl-textfield__label" for="passwd">密码</label>
+          </div>
+        </div>
+        <!-- Colored mini FAB button -->
+        <div class="container">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          开始
+          </button>
+        </div>
+      </form>
+
+
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+
+</html>
