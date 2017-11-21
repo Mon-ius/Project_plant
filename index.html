@@ -4,14 +4,19 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <title>首页</title>
+  {% block head %}
+  
+  <title>{% block title %}{% endblock %}</title>
   <!-- Page styles -->
+  {% block style %}{% endblock %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.min.css">
   <link rel="stylesheet" href="/static/css/bootstrap-theme.css">
   <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="static/css/style.css">
+  
   <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -26,7 +31,7 @@
       z-index: 900;
     }
   </style>
-
+{% endblock %}
 </head>
 
 <body>
@@ -50,13 +55,13 @@
         <!-- Navigation -->
         <div class="android-navigation-container">
           <nav class="android-navigation mdl-navigation">
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="./input1.html">项目申报</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="./input2.html">中期检查</a>
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="./input3.html">成果验收</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/input1">项目申报</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/input2">中期检查</a>
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="/input3">成果验收</a>
           </nav>
         </div>
         <span class="android-mobile-title mdl-layout-title">
-            <img class="android-logo-image" src="images/android-logo.png">
+            <img class="android-logo-image" src="/static/images/android-logo.png">
           </span>
         <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
             <i class="material-icons">more_vert</i>
@@ -70,7 +75,6 @@
 
     <div class="android-drawer mdl-layout__drawer">
       <span class="mdl-layout-title">
-
           <i class=" android-logo-image material-icons md-72 orange600">face</i>
         </span>
       <nav class="mdl-navigation">
@@ -91,6 +95,8 @@
       </nav>
     </div>
 
+    {% extends "base.html" %}
+    {% block content %}
     <div class="android-content mdl-layout__content">
       <a name="top"></a>
       <div class="android-more-section">
@@ -98,7 +104,7 @@
         <div class="android-card-container mdl-grid">
           <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
             <div class="mdl-card__media">
-              <img src="images/more-from-1.png">
+              <img src="/static/images/more-from-1.png">
             </div>
             <div class="mdl-card__title">
               <h4 class="mdl-card__title-text">项目申请</h4>
@@ -110,7 +116,7 @@
 
             </div>
             <div class="mdl-card__actions">
-              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="./input1.html">
+              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="/input1">
                    从一个表单开始
                    <i class="material-icons">chevron_right</i>
                  </a>
@@ -119,7 +125,7 @@
 
           <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
             <div class="mdl-card__media">
-              <img src="images/more-from-4.png">
+              <img src="/static/images/more-from-4.png">
             </div>
             <div class="mdl-card__title">
               <h4 class="mdl-card__title-text">申请结果查询</h4>
@@ -129,7 +135,7 @@
                   预计周期15-30天</span>
             </div>
             <div class="mdl-card__actions">
-              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="./input0.html">
+              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="/input0">
                    是否继续
                    <i class="material-icons">chevron_right</i>
                  </a>
@@ -138,7 +144,7 @@
 
           <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
             <div class="mdl-card__media">
-              <img src="images/more-from-2.png">
+              <img src="/static/images/more-from-2.png">
             </div>
             <div class="mdl-card__title">
               <h4 class="mdl-card__title-text">中期材料提交</h4>
@@ -149,7 +155,7 @@
                 </span>
             </div>
             <div class="mdl-card__actions">
-              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="input2.html">
+              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="/input2">
                    提交中期材料
                    <i class="material-icons">chevron_right</i>
                  </a>
@@ -158,7 +164,7 @@
 
           <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
             <div class="mdl-card__media">
-              <img src="images/more-from-3.png">
+              <img src="/static/images/more-from-3.png">
             </div>
             <div class="mdl-card__title">
               <h4 class="mdl-card__title-text">成果验收</h4>
@@ -168,7 +174,7 @@
                   </span>
             </div>
             <div class="mdl-card__actions">
-              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="./input3.html">
+              <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="/input3">
                    完成项目
                    <i class="material-icons">chevron_right</i>
                  </a>
@@ -176,7 +182,7 @@
           </div>
         </div>
       </div>
-
+      {% endblock %}    
       <footer class="android-footer mdl-mega-footer">
         <div class="mdl-mega-footer--top-section">
           <div class="mdl-mega-footer--left-section">
@@ -208,12 +214,8 @@
             <li class="mdl-menu__item">Ver0.01</li>
             <li class="mdl-menu__item">Beta</li>
           </ul>
-
-
-
           <a class="android-link mdl-typography--font-light" href="">Privacy Policy</a>
         </div>
-
       </footer>
     </div>
   </div>
@@ -241,8 +243,6 @@
           </button>
         </div>
       </form>
-
-
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
