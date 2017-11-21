@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}审核中...{% endblock %} {% block content %}
+<div class="android-section-title mdl-typography--display-1-color-contrast">项目审核中</div>
+<div class="android-card-container ">
+
+  <div id="p3" class="mdl-progress mdl-js-progress"></div>
+  <script>
+    document.querySelector('#p3').addEventListener('mdl-componentupgraded', function () {
+      this.MaterialProgress.setProgress(33);
+      this.MaterialProgress.setBuffer(87);
+    });
+  </script>
+  <div class="mdl-card__title">
+    请耐心等待结果
+  </div>
+</div>
+{% endblock %}
