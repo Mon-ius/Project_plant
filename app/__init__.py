@@ -1,6 +1,15 @@
 from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+import sys  
 
-app = Flask(__name__)
-app.config.from_object('config')
+def init():
+    reload(sys)  
+    sys.setdefaultencoding('utf8')
+    app = Flask(__name__)
+    app.config.from_object('config')
+    return app
 
-from app import views
+app = init()
+db = SQLAlchemy(app)
+
+from app import views, models
