@@ -1,7 +1,9 @@
  #coding:utf-8
-from flask import render_template, flash, redirect
-from app import app
+from flask import render_template, flash, redirect, session, url_for, request, g
+from flask_login import login_user, logout_user, current_user, login_required
+from app import app, db, lm, oid
 from .forms import LoginForm
+from .models import User
 
 
 def had_sigin():
@@ -13,18 +15,16 @@ def index():
     return render_template('index.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
+@oid.loginhandler
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for OpenID="' + form.openid.data + '", remember_me=' + str(form.remember_me.data))
+    if  form.validate_on_submit():
+        
         return redirect('/index')
     else:
-        flash('Login requested for OpenID="' + form.openid.data + '", remember_me=' + str(form.remember_me.data))
         return render_template('login.html',
         title = '登录',
         form = form)
-    
-
 @app.route('/input_0')
 def input_0():
     if had_sigin():
