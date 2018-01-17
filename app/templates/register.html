@@ -18,6 +18,7 @@
 
     <div class="container">
       <form class="form-signin" action= {{ url_for('register') }} method="post" name="login">
+        {{form.hidden_tag()}}
         <h2 class="form-signin-heading">注册</h2>
         <label for="number" class="sr-only">账号</label>
         <input name='username' type="text" id="number" class="form-control" placeholder="ACCOUNT" required autofocus>

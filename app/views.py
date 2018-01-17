@@ -18,7 +18,7 @@ def index():
 
 @app.route('/login', methods = ['POST','GET'])
 def login():
-    # form = LoginForm()
+    form = LoginForm()
     if request.method == 'POST':
         users = mongo.db.users
         login_user = users.find_one({'name': request.form['username']})
@@ -29,8 +29,8 @@ def login():
                 return redirect(url_for('index'))
         return 'Invalid username/passwd combination'
     return render_template('login.html',
-        title = '登录'
-        )
+        title = '登录',
+        form=form)
         
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -46,7 +46,8 @@ def register():
             return redirect(url_for('index'))
         return 'that is already exited'
     return render_template('register.html',
-        title = '注册')
+        title = '注册',
+        form=form)
 
 @app.route('/input_0')
 def input_0():
