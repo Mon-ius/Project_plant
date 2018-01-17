@@ -17,15 +17,13 @@
   <body>
 
     <div class="container">
-      <form class="form-signin" action= {{ url_for('login') }} method="post" name="login">
-
-        <h2 class="form-signin-heading">登录</h2>
+      <form class="form-signin" action= {{ url_for('register') }} method="post" name="login">
+        <h2 class="form-signin-heading">注册</h2>
         <label for="number" class="sr-only">账号</label>
-        <input name='username' type="text" id="number" class="form-control" placeholder="学号/工号" required autofocus>
+        <input name='username' type="text" id="number" class="form-control" placeholder="ACCOUNT" required autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input name='passwd' type="password" id="inputPassword" class="form-control" placeholder="默认为身份后六位" required>
-        <p><input class="btn btn-lg btn-primary btn-block" type="submit" value="登录"></p>
-        <p><a class="btn btn-lg btn-primary btn-block" href="{{ url_for('register') }}"> 注册</a></p>
+        <input name='passwd' type="password" id="inputPassword" class="form-control" placeholder="PASSWORD" required>
+        <p><input class="btn btn-lg btn-primary btn-block" type="submit" value="注册"></p>
       </form>
       {% with messages = get_flashed_messages() %}
       {% if messages %}
