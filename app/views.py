@@ -7,13 +7,11 @@ import bcrypt
 
 
 
-def had_sigin():
-    return False
 @app.route('/')
 def index():
     if 'username' not in session:
         return redirect(url_for('login'))
-    return render_template('index.html')
+    return render_template('index_test.html')
 
 
 @app.route('/login', methods = ['POST','GET'])
@@ -27,14 +25,14 @@ def login():
             if bcrypt.hashpw(request.form['passwd'].encode('utf-8'),login_user['passwd']) == login_user['passwd']:
                 session['username'] = request.form['username']
                 return redirect(url_for('index'))
-        return 'Invalid username/passwd combination'
+        return u'账号或密码错误'
     return render_template('login.html',
         title = '登录',
         form=form)
         
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-    # form = LoginForm()
+    form = LoginForm()
     if request.method == 'POST':
         users = mongo.db.users
         existing_user = users.find_one({'name': request.form['username']})

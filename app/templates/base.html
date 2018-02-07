@@ -6,14 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"> {% block head %}
   <title>{% block title %}base{% endblock %}</title>
+  <link rel="icon" sizes="192x192" href= "{{ url_for('static', filename='images/logo-white.png') }}">
   <!-- Page styles -->
-  {% block style %}{% endblock %}
+  {% block style %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/css.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/icon.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/material.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> {% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/material.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> {% endblock %}{% endblock %}
 </head>
 
 <body>
@@ -36,6 +37,7 @@
         <!-- Navigation -->
         <div class="android-navigation-container">
           <nav class="android-navigation mdl-navigation">
+            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{ url_for('index') }}">首页</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{ url_for('input_1') }}">项目申报</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{ url_for('input_2') }}">中期检查</a>
             <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{ url_for('input_3') }}">成果验收</a>
