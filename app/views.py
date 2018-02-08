@@ -20,7 +20,6 @@ def login():
     if request.method == 'POST':
         users = mongo.db.users
         login_user = users.find_one({'name': request.form['username']})
-        
         if login_user:
             if bcrypt.hashpw(request.form['passwd'].encode('utf-8'),login_user['passwd']) == login_user['passwd']:
                 session['username'] = request.form['username']
