@@ -1,0 +1,29 @@
+{% extends "Base.html" %} 
+{% block title %} {{ title }}{% endblock %}
+{% from 'Formtools.html' import input, error %}
+{% block content %}
+<div class="android-section-title mdl-typography--display-1-color-contrast">开始你的项目</div>
+<div class="android-card-container ">
+  <form class="form-horizontal" action = {{ url_for( 'input_2') }} method="post" name="middle" enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+          {{ input(form.schedule) }}
+          {{ input(form.preview) }}
+          {{ input(form.post) }}
+          {{ input(form.upload) }}
+          
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+          {{ error(form.schedule) }}
+          {{ error(form.preview) }}
+          {{ error(form.post) }}
+          {{ error(form.upload) }}
+          
+
+         {{ form.submit(class_="btn btn-default") }}
+      </div>
+    </div>
+    
+  </form>
+</div>
+{% endblock %}

@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,6 +51,9 @@
         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
           <li class="mdl-menu__item">帮助</li>
           <li class="mdl-menu__item">反馈</li>
+          {% if not current_user.is_anonymous %}
+          <a href="{{ url_for('logout') }}"><li class="mdl-menu__item">注销</li></a>
+          {% endif %}
         </ul>
       </div>
     </div>
