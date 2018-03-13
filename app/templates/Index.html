@@ -1,6 +1,7 @@
 {% extends "Base.html" %} {% block title %}首页{% endblock %} {% block content %}
 <div class="android-section-title mdl-typography--display-1-color-contrast">开始你的项目</div>
 <div class="android-card-container mdl-grid">
+
   <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
     <div class="mdl-card__media">
       <img src="{{ url_for('static', filename='images/more-from-1.png') }}">
@@ -19,6 +20,7 @@
       </a>
     </div>
   </div>
+
   <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
     <div class="mdl-card__media">
       <img src=" {{ url_for('static', filename='images/more-from-4.png') }} ">
@@ -37,6 +39,7 @@
       </a>
     </div>
   </div>
+
   <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
     <div class="mdl-card__media">
       <img src="{{ url_for('static', filename='images/more-from-2.png') }}">
@@ -55,6 +58,7 @@
       </a>
     </div>
   </div>
+
   <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
     <div class="mdl-card__media">
       <img src="{{ url_for('static', filename='images/more-from-3.png') }}">
@@ -73,5 +77,6 @@
       </a>
     </div>
   </div>
+  
 </div>
 {% endblock %}

@@ -4,6 +4,8 @@ from flask_login import LoginManager
 from config import basedir
 from flask import Flask
 from flask_pymongo import PyMongo
+from datetime import datetime, timedelta
+
 
 def init():
     # reload(sys)
@@ -14,7 +16,11 @@ def init():
 app = init()
 login = LoginManager(app)
 mongo= PyMongo(app)
+
+
 login.login_view = 'login'
 login.login_message = '请登录后访问'
+login.remember_cookie_duration = timedelta(days=30)
+
 
 from app import views, models, errors

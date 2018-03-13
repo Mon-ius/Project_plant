@@ -1,12 +1,14 @@
 
-{% macro input(form) -%}
+{% macro input(form,appear="label",myclass='form-control') -%}
 <div class="form-group">
+    {% if appear == "label"  %}
     {{ form.label(class_='col-sm-2 control-label') }}
-    <div class="col-sm-10 ">
-        {{ form(class_='form-control') }}
+    {% endif %}
+    <div class="col-sm-10">
+        {{ form(class_= myclass )  }}
     </div>
 </div>
-
+    
 {%- endmacro %} 
 
 
@@ -19,4 +21,28 @@
     </span>
 </div>
 {% endfor %}
+{%- endmacro %}
+
+{%- macro project_v(form,user) -%}
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="mdl-card__media">
+            <img src="{{ url_for('static', filename='images/more-from-1.png') }}">
+        </div>
+        <div class="mdl-card__title">
+            <h4 class="mdl-card__title-text">
+                {{ form.project }}
+            </h4>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <span class="mdl-typography--font-light mdl-typography--subhead">
+                {{ form.post }}
+            </span>
+        </div>
+        <div class="mdl-card__actions">
+            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('profile',username=user) }}">
+                查看项目
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </div>
+    </div>
 {%- endmacro %}

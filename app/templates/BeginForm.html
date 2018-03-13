@@ -1,8 +1,8 @@
 {% extends "Base.html" %} 
 {% block title %} {{ title }}{% endblock %}
-{% from 'Formtools.html' import input, error %}
-{% block content %}
 
+{% block content %}
+{% from 'Formtools.html' import input, error %}
 
 <div class="android-section-title mdl-typography--display-1-color-contrast">开始你的项目</div>
 <div class="android-card-container ">
@@ -12,8 +12,8 @@
       {{ input(form.person) }}
       {{ input(form.money) }}
       {{ input(form.post) }}
-      {{ input(form.upload) }}
-
+      {{ input(form.upload,myclass=" ") }}
+      {{ input(form.submit,myclass="btn btn-default") }}
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
           {{ error(form.project) }}
@@ -21,8 +21,6 @@
           {{ error(form.money) }}
           {{ error(form.post) }}
           {{ error(form.upload) }}
-
-         {{ form.submit(class_="btn btn-default") }}
       </div>
     </div>
 

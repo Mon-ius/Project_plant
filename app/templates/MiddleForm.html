@@ -9,8 +9,8 @@
           {{ input(form.schedule) }}
           {{ input(form.preview) }}
           {{ input(form.post) }}
-          {{ input(form.upload) }}
-          
+          {{ input(form.upload,myclass=" ") }}
+          {{ input(form.submit,myclass="btn btn-default") }}
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
@@ -18,9 +18,6 @@
           {{ error(form.preview) }}
           {{ error(form.post) }}
           {{ error(form.upload) }}
-          
-
-         {{ form.submit(class_="btn btn-default") }}
       </div>
     </div>
     

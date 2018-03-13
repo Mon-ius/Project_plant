@@ -1,3 +1,4 @@
+{% set admin=admin or false %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -57,7 +58,7 @@
         </ul>
       </div>
     </div>
-
+    {% if admin %}
     <div class="android-drawer mdl-layout__drawer">
       <span class="mdl-layout-title">
         <a href="{{ url_for('index') }}">
@@ -66,21 +67,41 @@
       </span>
       <nav class="mdl-navigation">
         <span class="mdl-navigation__link" href="">项目申报</span>
-
-        <a class="mdl-navigation__link" href="">学院申报概况</a>
-        <a class="mdl-navigation__link" href="">项目类别概况</a>
-        <a class="mdl-navigation__link" href="">经费概况</a>
-        <a class="mdl-navigation__link" href="">预期成果概况</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/college") }}">学院申报概况</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/class") }}">项目类别概况</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/money") }}">经费概况</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/preresult") }}">预期成果概况</a>
         <div class="android-drawer-separator"></div>
         <span class="mdl-navigation__link" href="">中期检查</span>
-        <a class="mdl-navigation__link" href="">项目进展</a>
-        <a class="mdl-navigation__link" href="">验收进度</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/proccess") }}">项目进展</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/accept") }}">验收进度</a>
         <div class="android-drawer-separator"></div>
         <span class="mdl-navigation__link" href="">成果验收</span>
-        <a class="mdl-navigation__link" href="">完成情况</a>
-        <a class="mdl-navigation__link" href="">项目评价</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/finish") }}">完成情况</a>
+        <a class="mdl-navigation__link" href="{{ url_for("info/eval") }}">项目评价</a>
       </nav>
     </div>
+    {% else %}
+
+        <div class="android-drawer mdl-layout__drawer">
+          <span class="mdl-layout-title">
+            <a href="{{ url_for('index') }}">
+              <i class=" android-logo-image material-icons md-72 orange600">face</i>
+            </a>
+          </span>
+          <nav class="mdl-navigation">
+            <span class="mdl-navigation__link" href="">项目申报</span>
+            <a class="mdl-navigation__link" href="{{ url_for("input_1") }}">提交申请</a>
+            <div class="android-drawer-separator"></div>
+            <span class="mdl-navigation__link" href="">中期检查</span>
+            <a class="mdl-navigation__link" href="{{ url_for("input_2") }}">材料提交</a>
+            <div class="android-drawer-separator"></div>
+            <span class="mdl-navigation__link" href="">成果验收</span>
+            <a class="mdl-navigation__link" href="{{ url_for("input_3") }}">完成项目</a>
+
+          </nav>
+        </div>
+    {% endif %}
     <div class="android-content mdl-layout__content">
       <a name="top"></a>
       <div class="android-more-section">

@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/opt/anaconda3/envs/new/bin/python",
+    "python.formatting.provider": "yapf"
+}

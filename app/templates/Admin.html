@@ -1,0 +1,82 @@
+{% extends "Base.html" %} {% block title %}审核{% endblock %} {% block content %}
+<div class="android-section-title mdl-typography--display-1-color-contrast">综合项目审核</div>
+<div class="android-card-container mdl-grid">
+
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="mdl-card__media">
+            <img src="{{ url_for('static', filename='images/more-from-1.png') }}">
+        </div>
+        <div class="mdl-card__title">
+            <h4 class="mdl-card__title-text">项目申请</h4>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <span class="mdl-typography--font-light mdl-typography--subhead">包括项目的基本信息：项目名称， 项目概述，经费需求，预计周期1-2月
+            </span>
+        </div>
+        <div class="mdl-card__actions">
+            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('input_1') }}">
+                从一个表单开始
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="mdl-card__media">
+            <img src=" {{ url_for('static', filename='images/more-from-4.png') }} ">
+        </div>
+        <div class="mdl-card__title">
+            <h4 class="mdl-card__title-text">申请结果查询</h4>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <span class="mdl-typography--font-light mdl-typography--subhead">得到批准，可进行中期检查等后续阶段， 预计周期15-30天
+            </span>
+        </div>
+        <div class="mdl-card__actions">
+            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('input_0') }}">
+                是否继续
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="mdl-card__media">
+            <img src="{{ url_for('static', filename='images/more-from-2.png') }}">
+        </div>
+        <div class="mdl-card__title">
+            <h4 class="mdl-card__title-text">中期材料提交</h4>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <span class="mdl-typography--font-light mdl-typography--subhead">包括项目的进展情况，研究成果，进度等， 预计周期2-3个月
+            </span>
+        </div>
+        <div class="mdl-card__actions">
+            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('input_2') }}">
+                提交中期材料
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="mdl-card__media">
+            <img src="{{ url_for('static', filename='images/more-from-3.png') }}">
+        </div>
+        <div class="mdl-card__title">
+            <h4 class="mdl-card__title-text">成果验收</h4>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <span class="mdl-typography--font-light mdl-typography--subhead">提交完整的项目材料，包括最终进展，研究成果，获奖情况等
+            </span>
+        </div>
+        <div class="mdl-card__actions">
+            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('input_3') }}">
+                完成项目
+                <i class="material-icons">chevron_right</i>
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

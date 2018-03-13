@@ -14,6 +14,8 @@ import bcrypt,os
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     return render_template('Index.html')
 
 
@@ -57,18 +59,28 @@ def register():
         title = '注册',
         form=form)
 
+@app.route('/admin')
+@login_required
+def admin():
+    if not current_user.admin:
+        return  redirect(url_for('index'))
+    return render_template('admin.html',admin=current_user.admin)
 
 @app.route('/input_0', methods=['GET', 'POST'])
 @login_required
 def input_0():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     return render_template('waitting.html')
 
 
 @app.route('/input_1', methods=['GET', 'POST'])
 @login_required
 def input_1():
-    # if current_user.get_post_num()>0:
-    #     return redirect(url_for('input_0'))
+    if current_user.admin:
+        return redirect(url_for('admin'))
+    if current_user.get_post_num()>0:
+        return redirect(url_for('input_0'))
     form = BeginForm()
     if form.validate_on_submit():
         file = form.__class__.__name__ + '-'+secure_filename(
@@ -97,6 +109,8 @@ def input_1():
 @app.route('/input_2', methods=['GET', 'POST'])
 @login_required
 def input_2():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     if current_user.get_post_num() > 1:
         return redirect(url_for('input_0'))
     form = MiddleForm()
@@ -126,6 +140,8 @@ def input_2():
 @app.route('/input_3', methods=['GET', 'POST'])
 @login_required
 def input_3():
+    if current_user.admin:
+        return redirect(url_for('admin'))
     if current_user.get_post_num() > 3:
         return redirect(url_for('input_0'))
     form = FinalForm()

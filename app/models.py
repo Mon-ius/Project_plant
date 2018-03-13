@@ -11,6 +11,7 @@ class User(UserMixin):
         self.passwd = passwd
         self.post_num = post_num
         self.path = app.config['UPLOADED_DATA_DEST'] + '/' + str(name)
+        self.admin = False
 
     def get_id(self):
         return self.name
@@ -29,7 +30,8 @@ class User(UserMixin):
         users.insert({
             'name': self.name,
             "passwd": hash_pass,
-            "post_num": self.post_num
+            "post_num": self.post_num,
+            "admin":self.admin
         })
 
     def set_post_num(self,num):
@@ -41,8 +43,11 @@ class User(UserMixin):
 
     def validate_login(self):
         users = mongo.db.users
-        passwd = users.find_one({'name': self.name})['passwd']
+        user = users.find_one({'name': self.name})
+        passwd = user['passwd']
         passwd_hash = bcrypt.hashpw(self.passwd.encode('utf-8'), passwd)
+        if 'admin' in user.keys():
+            self.admin = user['admin']
         return passwd_hash == passwd
 
 @login.user_loader
