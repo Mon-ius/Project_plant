@@ -1,6 +1,7 @@
 from app import app, login, mongo
 from flask_login import UserMixin
 from flask_pymongo import ObjectId
+from hashlib import md5
 import bcrypt
 
 
@@ -19,25 +20,39 @@ class User(UserMixin):
     def get_post_num(self):
         users = mongo.db.users
         user = users.find_one({'name': self.name})
-        if 'set_post_num' not in user.keys():
-            user['set_post_num']=0
+        if 'post_num' not in user.keys():
+            user['post_num'] = 0
             users.save(user)
-        return user['set_post_num']
+        return user['post_num']
+
+    def get_admin(self):
+        users = mongo.db.users
+        user = users.find_one({'name': self.name})
+        if 'admin' not in user.keys():
+            user['admin'] = False
+            users.save(user)
+        return user['admin']
 
     def set_passwd(self):
         users = mongo.db.users
         hash_pass = bcrypt.hashpw(self.passwd.encode('utf-8'), bcrypt.gensalt())
+        digest = md5(self.name.lower().encode('utf-8')).hexdigest()
+        size =256
+        avatar ='https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
         users.insert({
             'name': self.name,
             "passwd": hash_pass,
             "post_num": self.post_num,
-            "admin":self.admin
+            "admin": self.admin,
+            "pass":False,
+            "avatar": avatar,
         })
 
     def set_post_num(self,num):
         users = mongo.db.users
         user = users.find_one({'name':self.name})
-        user['set_post_num']=num
+        user['post_num'] = num
         users.save(user)
 
 
@@ -46,9 +61,9 @@ class User(UserMixin):
         user = users.find_one({'name': self.name})
         passwd = user['passwd']
         passwd_hash = bcrypt.hashpw(self.passwd.encode('utf-8'), passwd)
-        if 'admin' in user.keys():
-            self.admin = user['admin']
         return passwd_hash == passwd
+
+
 
 @login.user_loader
 def load_user(name):

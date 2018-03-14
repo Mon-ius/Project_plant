@@ -1,15 +1,22 @@
 
-{% macro input(form,appear="label",myclass='form-control') -%}
+{% macro input(form,appear="label",myclass='form-control',v=false) -%}
 <div class="form-group">
     {% if appear == "label"  %}
-    {{ form.label(class_='col-sm-2 control-label') }}
+        {{ form.label(class_='col-sm-2 control-label') }}
+    {% else %}
+       
     {% endif %}
     <div class="col-sm-10">
-        {{ form(class_= myclass )  }}
+        {% if v %}
+         {{ form(class_= myclass,value=v) }}
+         {% else %}
+         {{ form(class_= myclass) }}
+        {% endif %}
     </div>
 </div>
     
 {%- endmacro %} 
+
 
 
 {%- macro error(form) -%}
@@ -26,23 +33,36 @@
 {%- macro project_v(form,user) -%}
     <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
         <div class="mdl-card__media">
-            <img src="{{ url_for('static', filename='images/more-from-1.png') }}">
+            <img src="{{ user['avatar'] }}">
         </div>
         <div class="mdl-card__title">
             <h4 class="mdl-card__title-text">
-                {{ form.project }}
+                {{ form['project'] }}
             </h4>
         </div>
         <div class="mdl-card__supporting-text">
-            <span class="mdl-typography--font-light mdl-typography--subhead">
-                {{ form.post }}
-            </span>
+
+             {{ form['post'] }}
         </div>
         <div class="mdl-card__actions">
-            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('profile',username=user) }}">
-                查看项目
+            <a class="android-link mdl-button mdl-js-button mdl-typography--text-uppercase" href="{{ url_for('profile',username=user['name']) }}">
+                审核项目
                 <i class="material-icons">chevron_right</i>
             </a>
         </div>
+        <div class="mdl-card__menu">
+            
+                <a class="mdl-button  mdl-js-button mdl-js-ripple-effect">
+                     {{ user['name'] }}
+                </a>
+            
+        </div>
     </div>
+{%- endmacro %}
+
+{%- macro form_field(name,content="未提交") -%}
+<div class="form-group">
+    <label  for="disabledTextInput" >{{ name　}}</label>
+    <input class="form-control" type="text" id="disabledTextInput"  placeholder="{{ content }}" readonly> 
+</div>
 {%- endmacro %}

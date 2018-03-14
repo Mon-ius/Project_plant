@@ -19,7 +19,7 @@ mongo= PyMongo(app)
 
 
 login.login_view = 'login'
-login.login_message = '请登录后访问'
+login.login_message = u'请登录后访问'
 login.remember_cookie_duration = timedelta(days=30)
 
 

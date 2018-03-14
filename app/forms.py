@@ -60,6 +60,11 @@ class RegistrationForm(FlaskForm):
     #         raise ValidationError('Please use a different email address.')
 
 
+class ProfileForm(FlaskForm):
+    username = StringField('学号/工号', validators=[DataRequired()])
+    submit = SubmitField('审核通过')
+
+
 class BeginForm(FlaskForm):
     project = StringField('项目名称', validators=[DataRequired(),Length(min=1, max=30)])
     person = StringField('负责人', validators=[DataRequired(),Length(min=1, max=10)])
@@ -82,11 +87,13 @@ class MiddleForm(FlaskForm):
     upload = FileField('材料提交', validators=[FileRequired(),FileAllowed(['doc', 'docx','pdf'], '请提交正确的文档')])
     submit = SubmitField('提交')
 
-    def validate_form(self,schedule):
+    def validate_schedule(self, schedule):
         users = mongo.db.users
         user = users.find_one({'name': current_user.name})
+        if not ('posts' in user.keys()):
+            raise ValidationError('请提交项目申请')
         if user['posts']['post_1'] is None:
-            raise ValidationError('需要完成项目申请并通过审核')
+            raise ValidationError('请等待通过审核')
 
 class FinalForm(FlaskForm):
     change = StringField(
@@ -106,26 +113,22 @@ class FinalForm(FlaskForm):
         ])
     submit = SubmitField('提交')
 
-    def validate_form(self,change):
+    def validate_change(self, change):
         users = mongo.db.users
         user = users.find_one({'name': current_user.name})
+        if not ('posts' in user.keys()):
+            raise ValidationError('请提交项目申请')
         if user['posts']['post_2'] is None:
             raise ValidationError('需要完成中期材料提交并通过审核')
 
-class ProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
-    submit = SubmitField('Submit')
 
-    def __init__(self, original_username, *args, **kwargs):
-        super(ProfileForm, self).__init__(*args, **kwargs)
-        self.original_username = original_username
 
-    def validate_username(self, username):
-        if username.data != self.original_username:
-            user = User.query.filter_by(username=self.username.data).first()
-            if user is not None:
-                raise ValidationError('Please use a different username.')
+
+
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
 
 
 class ResetPasswordRequestForm(FlaskForm):

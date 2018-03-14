@@ -1,20 +1,31 @@
 #coding:utf-8
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask import render_template, flash, redirect, session, url_for, request, g,abort
 from flask_login import login_user, logout_user, current_user, login_required
 
-from .forms import LoginForm, RegistrationForm, BeginForm, MiddleForm, FinalForm
+from .forms import LoginForm, RegistrationForm, ProfileForm,BeginForm, MiddleForm, FinalForm
 from .models import User,Post
 from werkzeug.utils import secure_filename
 from app import app, mongo, login
 import bcrypt,os
 
 
+@app.route('/admin')
+@login_required
+def admin():
+    if  current_user.get_admin():
+        users = mongo.db.users
+        user = users.find({"post_num": {"$gt": 0}})
+        return render_template('Admin.html', users=user,admin=True)
+    return redirect(url_for('index'))
+    # return render_template('index.html')
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    if current_user.admin:
+    print(current_user.admin)
+    if current_user.get_admin():
         return redirect(url_for('admin'))
     return render_template('Index.html')
 
@@ -36,6 +47,9 @@ def login():
             flash('密码错误')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me)
+
+        # print(user.admin)
+        # print(current_user.admin)
         # login_user(User(str(user['_id'])))
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
@@ -44,6 +58,7 @@ def login():
     return render_template('Login.html',
         title = '登录',
         form=form)
+
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -59,17 +74,61 @@ def register():
         title = '注册',
         form=form)
 
-@app.route('/admin')
+
+
+
+
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+    if not current_user.get_admin():
+        return redirect(url_for('index'))
+    form = ProfileForm()
+    if form.validate_on_submit():
+        users = mongo.db.users
+        user = users.find_one({'name': form.username.data})
+        user['pass'] = True
+        users.save(user)
+        return redirect(url_for('profile', username=form.username.data))
+    return abort(404)
+
+
+@app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
-def admin():
-    if not current_user.admin:
-        return  redirect(url_for('index'))
-    return render_template('admin.html',admin=current_user.admin)
+def profile(username):
+    if not current_user.get_admin():
+        return redirect(url_for('index'))
+    form = ProfileForm()
+    users = mongo.db.users
+    user = users.find_one({'name':username})
+    if 'pass' not in user.keys():
+        user['pass']=False
+        mongo.db.users.save(user)
+    post =user['pass']
+    if not user or user['post_num']<1:
+        abort(404)
+    return render_template(
+        'Profile.html',
+        forms=user['posts'],
+        form=form,
+        post=post,
+        username=username,
+        admin=True)
+
+
+@app.route('/info/<page>')
+@login_required
+def info(page):
+    if page not in ['college',"class","money","preresult"
+        ,"proccess","accept","finish","eval"]:
+        abort(404)
+    return '功能正在完善'
+
+
 
 @app.route('/input_0', methods=['GET', 'POST'])
 @login_required
 def input_0():
-    if current_user.admin:
+    if current_user.get_admin():
         return redirect(url_for('admin'))
     return render_template('waitting.html')
 
@@ -77,7 +136,7 @@ def input_0():
 @app.route('/input_1', methods=['GET', 'POST'])
 @login_required
 def input_1():
-    if current_user.admin:
+    if current_user.get_admin():
         return redirect(url_for('admin'))
     if current_user.get_post_num()>0:
         return redirect(url_for('input_0'))
@@ -89,8 +148,9 @@ def input_1():
         if not os.path.exists(file_path):
             os.makedirs(file_path)
         filedata = os.listdir(file_path)
-        filedata.append(file)
-        form.upload.data.save(file_path + '/' + file)
+        if file not in filedata:
+            filedata.append(file)
+            form.upload.data.save(file_path + '/' + file)
 
         post = {
             'project': form.project.data,
@@ -109,7 +169,7 @@ def input_1():
 @app.route('/input_2', methods=['GET', 'POST'])
 @login_required
 def input_2():
-    if current_user.admin:
+    if current_user.get_admin():
         return redirect(url_for('admin'))
     if current_user.get_post_num() > 1:
         return redirect(url_for('input_0'))
@@ -121,8 +181,9 @@ def input_2():
         if not os.path.exists(file_path):
             os.makedirs(file_path)
         filedata = os.listdir(file_path)
-        filedata.append(file)
-        form.upload.data.save(file_path + '/' + file)
+        if file not in filedata:
+            filedata.append(file)
+            form.upload.data.save(file_path + '/' + file)
 
         post = {
             'schedule': form.schedule.data,
@@ -140,7 +201,7 @@ def input_2():
 @app.route('/input_3', methods=['GET', 'POST'])
 @login_required
 def input_3():
-    if current_user.admin:
+    if current_user.get_admin():
         return redirect(url_for('admin'))
     if current_user.get_post_num() > 3:
         return redirect(url_for('input_0'))
@@ -152,8 +213,9 @@ def input_3():
         if not os.path.exists(file_path):
             os.makedirs(file_path)
         filedata = os.listdir(file_path)
-        filedata.append(file)
-        form.upload.data.save(file_path + '/' + file)
+        if file not in filedata:
+            filedata.append(file)
+            form.upload.data.save(file_path + '/' + file)
         post = {
             'change': form.change.data,
             'achievement': form.achievement.data,
