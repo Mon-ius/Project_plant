@@ -24,7 +24,6 @@ def admin():
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    print(current_user.admin)
     if current_user.get_admin():
         return redirect(url_for('admin'))
     return render_template('Index.html')
