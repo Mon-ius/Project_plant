@@ -1,7 +1,7 @@
 #coding:utf-8
 from flask import render_template, flash, redirect, session, url_for, request, g,abort
 from flask_login import login_user, logout_user, current_user, login_required
-
+from werkzeug.urls import url_parse
 from .forms import LoginForm, RegistrationForm, ProfileForm,BeginForm, MiddleForm, FinalForm
 from .models import User,Post
 from werkzeug.utils import secure_filename
