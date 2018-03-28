@@ -7,6 +7,29 @@ from .models import User,Post
 from werkzeug.utils import secure_filename
 from app import app, mongo, login
 import bcrypt,os
+import pandas as pd
+
+
+@app.route('/admin/exports/<username>', methods=['POST', 'GET'])
+@login_required
+def export(username):
+    if current_user.get_admin():
+        users = mongo.db.users
+        user = users.find({"name": username})
+        return render_template('Export.html', users=user, admin=True)
+    return redirect(url_for('index'))
+
+
+@app.route('/admin/exports', methods=['POST', 'GET'])
+@login_required
+def export_all():
+    if current_user.get_admin():
+        users = mongo.db.users
+        user = users.find({"post_num": {"$gt": 0}})
+        return render_template('Export.html', users=user, admin=True)
+    return redirect(url_for('index'))
+
+
 
 
 @app.route('/admin')
