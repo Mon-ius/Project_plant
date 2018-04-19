@@ -1,5 +1,5 @@
 from app import create_app, cli
-from ext import mongo as db,
+from ext import mongo.db as db
 import os
 
 

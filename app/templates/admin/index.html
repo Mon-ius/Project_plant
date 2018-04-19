@@ -1,0 +1,23 @@
+{% extends "Base.html" %} 
+{% block style %}
+{{ super() }}
+<style>
+    .mdl-card__menu {
+        color: hsla(76, 25%, 80%, 0.878);s
+    }
+</style>
+
+{% endblock %}
+{% block title %}超级漂亮哒界面(W_W){% endblock %} 
+{% block content %}
+{% from 'Formtools.html' import project_v %}
+<div class="android-section-title mdl-typography--display-1-color-contrast">综合项目审核</div>
+<div class="android-card-container mdl-grid">
+
+   {% for user in users %}
+        {{ project_v(user['posts']['post_1'],user) }}
+   {% endfor %}
+
+
+</div>
+{% endblock %}

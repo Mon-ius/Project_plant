@@ -1,100 +1,33 @@
 #coding:utf-8
-from flask import render_template, flash, redirect, session, url_for, request, g,abort
-from flask_login import login_user, logout_user, current_user, login_required
-from werkzeug.urls import url_parse
-from .forms import LoginForm, RegistrationForm, ProfileForm,BeginForm, MiddleForm, FinalForm
-from .models import User,Post
-from werkzeug.utils import secure_filename
-from app import app, mongo, login
-import bcrypt,os
+import os
+
+import bcrypt
 import pandas as pd
+from flask import (abort, flash, g, redirect, render_template, request,
+                   session, url_for)
+from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
 
+from app import app, login, mongo
 
-@app.route('/admin/exports/<username>', methods=['POST', 'GET'])
-@login_required
-def export(username):
-    if current_user.get_admin():
-        users = mongo.db.users
-        user = users.find({"name": username})
-        return render_template('Export.html', users=user, admin=True)
-    return redirect(url_for('index'))
-
-
-@app.route('/admin/exports', methods=['POST', 'GET'])
-@login_required
-def export_all():
-    if current_user.get_admin():
-        users = mongo.db.users
-        user = users.find({"post_num": {"$gt": 0}})
-        return render_template('Export.html', users=user, admin=True)
-    return redirect(url_for('index'))
+from .forms import (BeginForm, FinalForm, LoginForm, MiddleForm, ProfileForm,
+                    RegistrationForm)
+from .models import Post, User
 
 
 
 
-@app.route('/admin')
-@login_required
-def admin():
-    if  current_user.get_admin():
-        users = mongo.db.users
-        user = users.find({"post_num": {"$gt": 0}})
-        return render_template('Admin.html', users=user,admin=True)
-    return redirect(url_for('index'))
+
+
+
     # return render_template('index.html')
 
 
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/index', methods=['GET', 'POST'])
-@login_required
-def index():
-    if current_user.get_admin():
-        return redirect(url_for('admin'))
-    return render_template('Index.html')
 
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
 
 
-@app.route('/login', methods = ['POST','GET'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User(form.username.data,form.passwd.data)
-        if not user.validate_login():
-            flash('密码错误')
-            return redirect(url_for('login'))
-        login_user(user, remember=form.remember_me)
-
-        # print(user.admin)
-        # print(current_user.admin)
-        # login_user(User(str(user['_id'])))
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
-        return redirect(next_page)
-    return render_template('Login.html',
-        title = '登录',
-        form=form)
-
-
-@app.route('/register', methods = ['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(form.username.data,form.passwd.data)
-        user.set_passwd()
-        flash('恭喜,你已经成为注册用户')
-        return redirect(url_for('login'))
-    return render_template('Register.html',
-        title = '注册',
-        form=form)
 
 
 
