@@ -53,6 +53,6 @@
 - 项目大类变更管理
 - 用户变更(删除用户)
 
-####备注: 
-	- 用户认证未实现,数据分析系统未实现,Root管理待实现
-  - 项目地址:https://github.com/Mon-ius/Project_plant
+#### 备注: 
+- 用户认证未实现,数据分析系统未实现,Root管理待实现
+- 项目地址:https://github.com/Mon-ius/Project_plant
