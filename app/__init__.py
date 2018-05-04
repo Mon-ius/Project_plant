@@ -26,6 +26,10 @@ def create_app(config_class=Config):
 
     from app.main import bp as main_bp
     app.register_blueprint(main_bp)
+
+    from app.admin import bp as admin_bp
+    app.register_blueprint(admin_bp,url_prefix='/admin')
+
     if not app.debug and not app.testing:
         if app.config['MAIL_SERVER']:
             auth = None
@@ -61,18 +65,5 @@ def create_app(config_class=Config):
 
 
 
-def init():
-    # reload(sys)
-    # sys.setdefaultencoding('utf8')
-    app = Flask(__name__)
-    app.config.from_object('config')
-    return app
 
-login = LoginManager(app)
-mongo= PyMongo(app)
-
-
-
-
-
-from app import views, models, errors
+from app import models

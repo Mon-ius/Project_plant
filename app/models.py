@@ -3,6 +3,8 @@ from flask_login import UserMixin
 from flask_pymongo import ObjectId
 from hashlib import md5
 import bcrypt
+from datetime import datetime
+from time import time
 
 
 class User(UserMixin):
@@ -32,6 +34,13 @@ class User(UserMixin):
             user['admin'] = False
             users.save(user)
         return user['admin']
+
+    # def get_token(self, expires_in=600):
+    #     return hash_pass = bcrypt.hashpw(self.name.encode('utf-8'), bcrypt.gensalt())
+
+    # def verify_token(self,token):
+    #     bcrypt.hashpw(self.name.encode('utf-8'), bcrypt.gensalt())
+    #     return User.query.get(id)
 
     def set_passwd(self):
         users = mongo.db.users

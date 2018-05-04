@@ -12,11 +12,12 @@ class Config(object):
     WTF_CSRF_SECRET_KEY = 'laochenVSVIP'
     UPLOADED_DATA_DEST = os.path.join(basedir, 'uploads')
 
-    ADMINS = os.environ.get('ADMINS')
+
     MONGO_DBNAME = 'plant'
     MONGO_URI = 'mongodb://CKCHEN:secret@ds259897.mlab.com:59897/plant'
     POSTS_PER_PAGE = 3
     
+    ADMINS = os.environ.get('ADMINS')
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
