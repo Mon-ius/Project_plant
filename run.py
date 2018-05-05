@@ -1,6 +1,7 @@
-from app import create_app, cli
-from ext import mongo.db as db
 import os
+
+from app import cli, create_app
+from ext import mongo
 
 
 app = create_app()
@@ -9,7 +10,7 @@ cli.register(app)
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db}
+    return {'db': mongo.db}
 
 
 if __name__ =='__main__':

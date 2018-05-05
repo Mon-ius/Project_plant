@@ -1,6 +1,3 @@
-
-
-
 from flask_babel import _
 from flask_login import  login_user, logout_user, current_user
 
@@ -10,7 +7,7 @@ from app.auth.forms import LoginForm, RegistrationForm, ResetRequestForm, ResetP
 
 from app.auth import bp
 from app.models import User
-from ext import mongo.db as db
+from ext import mongo
 from app.auth.email import send_reset_email
 from werkzeug.urls import url_parse
 
@@ -36,13 +33,26 @@ def  login():
         return redirect(next_page)
     return render_template('auth/login.html', title=_('Sign In'), form=form)
 
+
+@bp.route('/signup', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(form.username.data, form.passwd.data)
+        user.set_passwd()
+        flash(_('Congratulations, you are now a registered user!'))
+        return redirect(url_for('auth.login'))
+    return render_template('auth/signup.html', title=_('Sign up'), form=form)
+
 @bp.route('/reset_request', methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     form = ResetRequestForm()
     if form.validate_on_submit():
-        user = db.user.find_one({'name':form.username.data})
+        user = mongo.db.user.find_one({'name':form.username.data})
         if user:
             send_reset_email(user)
         flash(
@@ -59,23 +69,15 @@ def reset_password(token):
         return redirect(url_for('main.index'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user.set_passwd(form.passwd.data)
-        db.session.commit()
+        user.passwd = form.passwd.data
+        user.set_passwd()
+        mongo.db.session.commit()
         flash(_('Your password has been reset.'))
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
 
-@bp.route('/register', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(form.username.data, form.passwd.data)
-        user.set_passwd()
-        flash(_('Congratulations, you are now a registered user!'))
-        return redirect(url_for('auth.login'))
-    return render_template('auth/register.html', title=_('Register'), form=form)
+
+
 
 
 

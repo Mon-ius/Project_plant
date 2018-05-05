@@ -1,10 +1,13 @@
-from app import app, login, mongo
+from datetime import datetime
+from hashlib import md5
+from time import time
+
+import bcrypt,jwt
+from flask import current_app
 from flask_login import UserMixin
 from flask_pymongo import ObjectId
-from hashlib import md5
-import bcrypt
-from datetime import datetime
-from time import time
+
+from ext import login, mongo
 
 
 class User(UserMixin):
@@ -13,7 +16,7 @@ class User(UserMixin):
         self.name = name
         self.passwd = passwd
         self.post_num = post_num
-        self.path = app.config['UPLOADED_DATA_DEST'] + '/' + str(name)
+        self.path = current_app.config['UPLOADED_DATA_DEST'] + '/' + str(name)
         self.admin = False
 
     def get_id(self):
@@ -35,8 +38,14 @@ class User(UserMixin):
             users.save(user)
         return user['admin']
 
-    # def get_token(self, expires_in=600):
-    #     return hash_pass = bcrypt.hashpw(self.name.encode('utf-8'), bcrypt.gensalt())
+    def get_token(self, expires_in=600):
+        return jwt.encode(
+            {
+                'reset_password': self.name,
+                'exp': time() + expires_in
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256').decode('utf-8')
 
     # def verify_token(self,token):
     #     bcrypt.hashpw(self.name.encode('utf-8'), bcrypt.gensalt())
@@ -72,16 +81,16 @@ class User(UserMixin):
         passwd_hash = bcrypt.hashpw(self.passwd.encode('utf-8'), passwd)
         return passwd_hash == passwd
 
-
-
-@login.user_loader
-def load_user(name):
-    users = mongo.db.users
-    user = users.find_one({'name': name})
-    if user:
-        return User(name)
-    return user
-
+    @staticmethod
+    def verify_token(token):
+        try:
+            id = jwt.decode(token, current_app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        users = mongo.db.users
+        return users.find_one({'name': id})
+        
 
 class Post(UserMixin):
     def __init__(self,name,post_1=None,post_2=None,post_3=None):
@@ -104,3 +113,12 @@ class Post(UserMixin):
                 if posts[x]:
                     user['posts'][x]=posts[x]
         users.save(user)
+
+
+@login.user_loader
+def load_user(name):
+    users = mongo.db.users
+    user = users.find_one({'name': name})
+    if user:
+        return User(name)
+    return user

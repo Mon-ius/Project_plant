@@ -1,5 +1,3 @@
-
-
 import os, click
 
 def register(app):

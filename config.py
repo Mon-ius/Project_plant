@@ -24,6 +24,6 @@ class Config(object):
     MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL') is not None
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
+    # MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
 
     #print SQLALCHEMY_DATABASE_URI,SQLALCHEMY_MIGRATE_REPO

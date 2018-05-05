@@ -6,20 +6,58 @@ from wtforms.validators import DataRequired,ValidationError,\
                     Email,EqualTo,Length
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 
-from ext import mongo.db as db
+from ext import mongo
+
+
+class ProfileForm(FlaskForm):
+    realname = StringField(
+        '姓名', validators=[DataRequired(),
+                            Length(min=1, max=10)])
+    phonenumber = StringField(
+        '手机号码', validators=[DataRequired(),
+                            Length(min=1, max=20)])
+    school = StringField(
+        '院校名称', validators=[DataRequired(),
+                           Length(min=1, max=10)])
+    college = StringField(
+        '所在学院', validators=[DataRequired(),
+                            Length(min=1, max=10)])
+    state = StringField(
+        '职称', validators=[DataRequired(),
+                            Length(min=1, max=10)])
+    info = TextAreaField(
+        '个人简介', validators=[DataRequired(),
+                            Length(min=1, max=233)])
+    # upload_begin = FieldList(FileField('材料提交'))
+    submit = SubmitField('提交')
+
+class PostForm(FlaskForm):
+    stage = StringField(
+        '项目阶段', validators=[DataRequired(),
+                            Length(min=1, max=3)])
+    passed = BooleanField(
+        '通过', validators=[DataRequired(),
+                            Length(min=1, max=4)])
+    submit = SubmitField('提交')
 
 class BeginForm(FlaskForm):
-    project = StringField(
+    pname = StringField(
         '项目名称', validators=[DataRequired(),
                             Length(min=1, max=30)])
+    pclass = StringField(
+        '所属项目类别', validators=[DataRequired(),
+                            Length(min=1, max=10)])
+    college = StringField(
+        '所在学院', validators=[DataRequired(),
+                            Length(min=1, max=10)])
     person = StringField(
         '负责人', validators=[DataRequired(),
                            Length(min=1, max=10)])
-    money = StringField(
-        '经费需求', validators=[DataRequired(),
-                            Length(min=1, max=10)])
+    teacher = StringField(
+        '指导老师', validators=[DataRequired(),
+                           Length(min=1, max=10)])
     post = TextAreaField(
-        '项目概述', validators=[DataRequired(),
+        '项目简介', validators=[DataRequired(),
                             Length(min=1, max=500)])
     # upload_begin = FieldList(FileField('材料提交'))
 
@@ -33,15 +71,15 @@ class BeginForm(FlaskForm):
 
 
 class MiddleForm(FlaskForm):
-    schedule = StringField(
-        '项目进度', validators=[DataRequired(),
+    level = StringField(
+            '项目级别', validators=[DataRequired(),
+                                Length(min=1, max=10)])
+    money = StringField(
+            '经费需求', validators=[DataRequired(),
+                                Length(min=1, max=10)])
+    team = StringField(
+        '团队信息', validators=[DataRequired(),
                             Length(min=1, max=30)])
-    preview = StringField(
-        '预期成果名称', validators=[DataRequired(),
-                              Length(min=1, max=100)])
-    post = TextAreaField(
-        '阶段性报告', validators=[DataRequired(),
-                             Length(min=1, max=500)])
     upload = FileField(
         '材料提交',
         validators=[
@@ -51,7 +89,7 @@ class MiddleForm(FlaskForm):
     submit = SubmitField('提交')
 
     def validate_schedule(self, schedule):
-        users = db.users
+        users = mongo.db.users
         user = users.find_one({'name': current_user.name})
         if not ('posts' in user.keys()):
             raise ValidationError('请提交项目申请')
@@ -78,7 +116,7 @@ class FinalForm(FlaskForm):
     submit = SubmitField('提交')
 
     def validate_change(self, change):
-        users = db.users
+        users = mongo.db.users
         user = users.find_one({'name': current_user.name})
         if not ('posts' in user.keys()):
             raise ValidationError('请提交项目申请')
